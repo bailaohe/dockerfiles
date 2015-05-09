@@ -1,0 +1,9 @@
+#cloud-config
+coreos:
+  units:
+    - name: etcd.service
+      command: start
+    - name: fleet.service
+      command: start
+ssh_authorized_keys:
+  - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDGscU5+jOoiQMfmLZ1cU1p8EwWL1snugKk587BBo9c0q3rvzx7i8ymYxbdvBHF1eRDaQmsgZCA90TzJ7HMnSrONKganph4kM5CTrb8D9O8VU4Qg5PIn9o6wifJ1sUGGg6ysP5+AblVkSvXdoqmovJIEt8gekxumaJZNase4T7uY+4HTsJqmNclMVlgMV1gXTki0yopkvxM1WKNDwXZZUtf0WfcW9GGSGQzvmOtP9nUaR4m5pALrZfSe8zPxZrQceBs1SwzuSwvsDdSohNWjBZZHls6qbhXJ9h6d7CHAv9BuaEy0mPKhaAnd/jb99bLiznwVdyzFQB+pWyGdv5gE0yR baihe@baihetekiMacBook-Pro.local
