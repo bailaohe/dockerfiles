@@ -33,6 +33,7 @@ RUN mkdir /www
 ADD cloud-config.yml /www/cloud-config.yml
 
 RUN curl https://deb.nodesource.com/setup | sh
+RUN apt-get -qy install nodejs
 RUN npm install http-server -g
 
 CMD \
