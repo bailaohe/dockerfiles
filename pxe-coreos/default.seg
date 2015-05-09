@@ -1,0 +1,6 @@
+prompt 1
+timeout 15
+
+display boot.msg
+
+
