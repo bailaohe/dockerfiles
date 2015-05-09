@@ -32,7 +32,7 @@ ADD boot.msg /tftp/pxelinux.cfg/boot.msg
 RUN mkdir /www
 ADD cloud-config.yml /www/cloud-config.yml
 
-RUN curl https://npmjs.org/install.sh | sh
+RUN curl https://deb.nodesource.com/setup | sh
 RUN npm install http-server -g
 
 CMD \
