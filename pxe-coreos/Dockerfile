@@ -18,7 +18,7 @@ RUN mkdir -p /tftp/alpha
 WORKDIR /tftp
 
 ADD http://ftp.nl.debian.org/debian/dists/jessie/main/installer-amd64/current/images/netboot/pxelinux.0 /tftp/
-RUN ln -s /usr/lib/syslinux/modules/bios/ldlinux.c32 /ldlinux.c32
+RUN ln -s /usr/lib/syslinux/modules/bios/ldlinux.c32 /tftp/ldlinux.c32
 
 ADD http://stable.release.core-os.net/amd64-usr/current/coreos_production_pxe.vmlinuz /tftp/stable/
 ADD http://stable.release.core-os.net/amd64-usr/current/coreos_production_pxe_image.cpio.gz /tftp/stable/
