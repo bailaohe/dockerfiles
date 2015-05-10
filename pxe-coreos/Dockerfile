@@ -8,7 +8,7 @@ ENV DEFAULT stable
 ENV CLOUD_CONFIG_URL http://localhost/cloud-config.yml
 
 RUN apt-get -q update
-RUN apt-get -qy install dnsmasq wget iptables curl
+RUN apt-get -qy install dnsmasq wget iptables curl syslinux
 RUN wget --no-check-certificate https://raw.github.com/jpetazzo/pipework/master/pipework
 RUN chmod +x pipework
 RUN mkdir -p /tftp/stable
@@ -16,6 +16,9 @@ RUN mkdir -p /tftp/beta
 RUN mkdir -p /tftp/alpha
 
 WORKDIR /tftp
+
+ADD http://ftp.nl.debian.org/debian/dists/jessie/main/installer-amd64/current/images/netboot/pxelinux.0 /tftp/
+RUN ln -s /usr/lib/syslinux/modules/bios/ldlinux.c32 /ldlinux.c32
 
 ADD http://stable.release.core-os.net/amd64-usr/current/coreos_production_pxe.vmlinuz /tftp/stable/
 ADD http://stable.release.core-os.net/amd64-usr/current/coreos_production_pxe_image.cpio.gz /tftp/stable/
@@ -25,6 +28,8 @@ ADD http://beta.release.core-os.net/amd64-usr/current/coreos_production_pxe_imag
 
 ADD http://alpha.release.core-os.net/amd64-usr/current/coreos_production_pxe.vmlinuz /tftp/alpha/
 ADD http://alpha.release.core-os.net/amd64-usr/current/coreos_production_pxe_image.cpio.gz /tftp/alpha/
+
+RUN chmod -R 755 /tftp
 
 RUN mkdir pxelinux.cfg
 ADD boot.msg /tftp/pxelinux.cfg/boot.msg
