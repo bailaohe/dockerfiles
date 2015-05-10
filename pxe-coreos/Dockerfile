@@ -44,6 +44,7 @@ RUN npm install http-server -g
 CMD \
     if [ -z "$DHCP_RANGE" ]; then echo "DHCP_RANGE is not set!"; exit 1; fi &&\
     if [ -z "$BOOT_SERVER" ]; then echo "BOOT_SERVER is not set!"; exit 1; fi &&\
+    if [ -z "$CLOUD_CONFIG_URL" ]; then CLOUD_CONFIG_URL=http://${BOOT_SERVER}:8080/cloud-config.yml; fi &&\
     http-server /www > /dev/null & \
     echo "default ${DEFAULT}" > pxelinux.cfg/default && \
     printf "prompt 1\ntimeout 15\n\ndisplay boot.msg\n" >> pxelinux.cfg/default && \
