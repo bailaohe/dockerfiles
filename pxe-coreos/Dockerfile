@@ -5,7 +5,7 @@ ENV ARCH amd64
 ENV DIST wheezy
 ENV MIRROR http://ftp.nl.debian.org
 ENV DEFAULT stable
-ENV CLOUD_CONFIG_URL http://localhost/cloud-config.yml
+ENV CLOUD_CONFIG_URL http://localhost:8080/cloud-config.yml
 
 RUN apt-get -q update
 RUN apt-get -qy install dnsmasq wget iptables curl syslinux
