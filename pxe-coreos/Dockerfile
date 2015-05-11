@@ -32,7 +32,7 @@ ADD http://alpha.release.core-os.net/amd64-usr/current/coreos_production_pxe_ima
 RUN chmod -R 755 /tftp
 
 RUN mkdir pxelinux.cfg
-ADD boot.msg /tftp/pxelinux.cfg/boot.msg
+ADD boot.msg /tftp/boot.msg
 
 RUN mkdir /www
 ADD cloud-config.yml /www/cloud-config.yml
