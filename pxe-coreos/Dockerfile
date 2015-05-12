@@ -30,8 +30,7 @@ RUN chmod -R 755 /tftp
 RUN mkdir pxelinux.cfg
 ADD boot.msg /tftp/boot.msg
 
-RUN mkdir /www
-ADD cloud-config.yml /www/cloud-config.yml
+ADD cloud-config.yml /tftp/cloud-config.yml
 
 RUN curl https://deb.nodesource.com/setup | sh
 RUN apt-get -qy install nodejs
@@ -40,7 +39,7 @@ RUN npm install http-server -g
 CMD \
     if [ -z "$DHCP_RANGE" ]; then echo "DHCP_RANGE is not set!"; exit 1; fi &&\
     if [ -z "$BOOT_SERVER" ]; then echo "BOOT_SERVER is not set!"; exit 1; fi &&\
-    http-server /www > /dev/null & \
+    http-server /tftp > /dev/null & \
     echo "default ${DEFAULT}" > pxelinux.cfg/default && \
     printf "prompt 1\ntimeout 15\n\ndisplay boot.msg\n" >> pxelinux.cfg/default && \
     LABEL=stable && \
