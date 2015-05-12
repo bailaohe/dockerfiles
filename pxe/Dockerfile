@@ -2,7 +2,7 @@ FROM debian
 MAINTAINER He Bai <bai.he@outlook.com>
 
 ENV ARCH amd64
-ENV DIST wheezy
+ENV DIST jessie
 ENV MIRROR http://ftp.nl.debian.org
 
 RUN apt-get -q update
@@ -29,6 +29,6 @@ CMD \
     dnsmasq --interface=eth1 \
     	    --dhcp-range=$DHCP_RANGE,1h \
 	    --dhcp-boot=pxelinux.0,pxeserver,$BOOT_SERVER \
-	    --pxe-service=x86PC,"Install Linux",pxelinux \
+	    --pxe-service=x86PC,"Install Debian ${DIST}",pxelinux \
 	    --enable-tftp --tftp-root=/tftp/ --no-daemon
 
