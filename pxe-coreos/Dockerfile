@@ -1,9 +1,6 @@
-FROM debian
+FROM debian:jessie
 MAINTAINER He Bai <bai.he@outlook.com>
 
-ENV ARCH amd64
-ENV DIST wheezy
-ENV MIRROR http://ftp.nl.debian.org
 ENV DEFAULT stable
 
 RUN apt-get -q update
@@ -43,16 +40,15 @@ RUN npm install http-server -g
 CMD \
     if [ -z "$DHCP_RANGE" ]; then echo "DHCP_RANGE is not set!"; exit 1; fi &&\
     if [ -z "$BOOT_SERVER" ]; then echo "BOOT_SERVER is not set!"; exit 1; fi &&\
-    if [ -z "$CLOUD_CONFIG_URL" ]; then CLOUD_CONFIG_URL=http://${BOOT_SERVER}:8080/cloud-config.yml; fi &&\
     http-server /www > /dev/null & \
     echo "default ${DEFAULT}" > pxelinux.cfg/default && \
     printf "prompt 1\ntimeout 15\n\ndisplay boot.msg\n" >> pxelinux.cfg/default && \
     LABEL=stable && \
-    printf "\nlabel ${LABEL}\n\tkernel ${LABEL}/coreos_production_pxe.vmlinuz\nappend initrd=${LABEL}/coreos_production_pxe_image.cpio.gz cloud-config-url=${CLOUD_CONFIG_URL}" >> pxelinux.cfg/default && \
+    printf "\nlabel ${LABEL}\n\tkernel ${LABEL}/coreos_production_pxe.vmlinuz\nappend initrd=${LABEL}/coreos_production_pxe_image.cpio.gz cloud-config-url=http://${BOOT_SERVER}:8080/cloud-config.yml" >> pxelinux.cfg/default && \
     LABEL=beta && \
-    printf "\nlabel ${LABEL}\n\tkernel ${LABEL}/coreos_production_pxe.vmlinuz\nappend initrd=${LABEL}/coreos_production_pxe_image.cpio.gz cloud-config-url=${CLOUD_CONFIG_URL}" >> pxelinux.cfg/default && \
+    printf "\nlabel ${LABEL}\n\tkernel ${LABEL}/coreos_production_pxe.vmlinuz\nappend initrd=${LABEL}/coreos_production_pxe_image.cpio.gz cloud-config-url=http://${BOOT_SERVER}:8080/cloud-config.yml" >> pxelinux.cfg/default && \
     LABEL=alpha && \
-    printf "\nlabel ${LABEL}\n\tkernel ${LABEL}/coreos_production_pxe.vmlinuz\nappend initrd=${LABEL}/coreos_production_pxe_image.cpio.gz cloud-config-url=${CLOUD_CONFIG_URL}" >> pxelinux.cfg/default && \
+    printf "\nlabel ${LABEL}\n\tkernel ${LABEL}/coreos_production_pxe.vmlinuz\nappend initrd=${LABEL}/coreos_production_pxe_image.cpio.gz cloud-config-url=http://${BOOT_SERVER}:8080/cloud-config.yml" >> pxelinux.cfg/default && \
     echo Setting up iptables... &&\
     iptables -t nat -A POSTROUTING -j MASQUERADE &&\
     echo Waiting for pipework to give us the eth1 interface... &&\
