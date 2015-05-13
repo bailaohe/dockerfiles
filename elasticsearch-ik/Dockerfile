@@ -14,6 +14,5 @@ RUN cp ${IKDIR}/target/releases/elasticsearch-analysis-ik-*-jar-with-dependencie
 RUN cp -r ${IKDIR}/config/elasticsearch.yml ${ESDIR}/config/
 RUN cp -r ${IKDIR}/config/ik ${ESDIR}/config/
 
-EXPOSE 9200
-EXPOSE 9300
+EXPOSE 9200/tcp 9300/udp
 CMD ${ESDIR}/bin/elasticsearch
